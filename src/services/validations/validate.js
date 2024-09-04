@@ -1,13 +1,22 @@
-const { loginSchema } = require('./login.schema');
+const { loginSchema, newUserSchema } = require('./login.schema');
 
-const validateUser = (user) => {
+const validateLogin = (user) => {
   const { error } = loginSchema.validate(user);
 
   if (error) {
-    return { status: 400, message: error.message };
+    return { status: 400, data: { message: error.message } };
+  }
+};
+
+const validateNewUser = (user) => {
+  const { error } = newUserSchema.validate(user);
+
+  if (error) {
+    return { status: 400, data: { message: error.message } };
   }
 };
 
 module.exports = {
-  validateUser,
+  validateLogin,
+  validateNewUser,
 };

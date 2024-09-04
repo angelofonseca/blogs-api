@@ -12,6 +12,7 @@ app.get('/', (_request, response) => {
 
 app.use(express.json());
 app.post('/login', userController.login);
+app.post('/user', userController.create);
 
 // ...
 

@@ -9,6 +9,20 @@ const loginSchema = Joi.object({
   }),
 });
 
+const newUserSchema = Joi.object({
+  displayName: Joi.string().min(8).required().messages({
+    'min.length': '"displayName" length must be at least 8 characters long',
+  }),
+  email: Joi.string().email().required().messages({
+    'any.email': '"email" must be a valid email',
+  }),
+  password: Joi.string().min(6).required().messages({
+    'min.length': '"password" length must be at least 6 characters long',
+  }),
+  image: Joi.string(),
+});
+
 module.exports = {
   loginSchema,
+  newUserSchema,
 };
