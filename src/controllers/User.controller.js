@@ -19,8 +19,15 @@ const find = async (req, res) => {
   res.status(status).json(data);
 };
 
+const findAll = async (req, res) => {
+  const { status, data } = await userService.findAll();
+
+  res.status(status).json(data);
+};
+
 module.exports = {
   login,
   create,
   find,
+  findAll,
 };
