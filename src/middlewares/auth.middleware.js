@@ -1,9 +1,10 @@
 const { verify } = require('../utils/auth');
 
 module.exports = (req, res, next) => {
-  const token = req.headers.authorization;
+  const bearerToken = req.headers.authorization;
+  const token = bearerToken.split(' ')[1];
 
-  if (!token) return res.status(401).json({ error: { message: 'Token not found' } });
+  if (!token) return res.status(401).json({ message: 'Token not found' });
   try {
     const user = verify(token);
 
@@ -12,7 +13,7 @@ module.exports = (req, res, next) => {
     next();
   } catch (e) {
     return res.status(401).json(
-      { error: { message: 'jwt malformed' } },
+      { message: 'Expired or invalid token' },
     );
   }
 };

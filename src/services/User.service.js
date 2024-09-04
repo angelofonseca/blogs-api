@@ -39,7 +39,20 @@ const create = async (user) => {
   return { status: 201, data: { token: newToken } };
 };
 
+const find = async (id) => {
+  const user = await User.findOne({ where: { id } });
+
+  if (!user) {
+    return { status: 404, data: { message: 'User does not exist' } };
+  }
+
+  const { password, ...info } = user.dataValues;
+
+  return { status: 200, data: info };
+};
+
 module.exports = {
   login,
   create,
+  find,
 };

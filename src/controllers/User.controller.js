@@ -12,7 +12,15 @@ const create = async (req, res) => {
   res.status(status).json(data);
 };
 
+const find = async (req, res) => {
+  const { id } = req.params;
+  const { status, data } = await userService.find(id);
+
+  res.status(status).json(data);
+};
+
 module.exports = {
   login,
   create,
+  find,
 };
