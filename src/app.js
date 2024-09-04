@@ -19,6 +19,7 @@ app.get('/user/:id', authMiddleware, userController.find);
 
 // Category
 app.post('/categories', authMiddleware, categoryController.create);
+app.get('/categories', authMiddleware, categoryController.findAll);
 
 // ...
 
