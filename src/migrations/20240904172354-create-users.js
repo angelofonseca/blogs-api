@@ -20,11 +20,7 @@ module.exports = {
         allowNull: false,
       },
       image: Sequelize.STRING,
-    },
-      {
-        timestamps: false,
-      }
-    )
+    });
   },
 
   async down(queryInterface, Sequelize) {

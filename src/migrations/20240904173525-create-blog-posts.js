@@ -21,11 +21,7 @@ module.exports = {
       user_id: Sequelize.INTEGER,
       published: Sequelize.DATE,
       updated: Sequelize.DATE,
-    },
-      {
-        timestamps: false,
-      }
-    )
+    });
   },
 
   async down(queryInterface, Sequelize) {
