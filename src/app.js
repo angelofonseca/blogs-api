@@ -29,6 +29,7 @@ app.post('/post', blogPostController.create);
 app.get('/post', blogPostController.findAll);
 app.get('/post/:id', blogPostController.find);
 app.put('/post/:id', blogPostController.update);
+app.delete('/post/:id', blogPostController.remove);
 // ...
 
 // É importante exportar a constante `app`,

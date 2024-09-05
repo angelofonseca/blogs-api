@@ -26,9 +26,18 @@ const update = async (req, res) => {
   res.status(status).json(data);
 };
 
+const remove = async (req, res) => {
+  const { id } = req.params;
+  const { email } = req.locals.user;
+  const { status, data } = await blogPostService.remove(id, email);
+  if (data) return res.status(status).json(data);
+  res.status(status).end();
+};
+
 module.exports = {
   create,
   findAll,
   find,
   update,
+  remove,
 };
