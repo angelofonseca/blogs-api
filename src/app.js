@@ -1,6 +1,6 @@
 const express = require('express');
 const { userController, categoryController, blogPostController } = require('./controllers');
-const authMiddleware = require('./middlewares/auth.middleware');
+const authorizationMiddleware = require('./middlewares/authorization.middleware');
 
 // ...
 
@@ -14,18 +14,21 @@ app.get('/', (_request, response) => {
 app.use(express.json());
 app.post('/login', userController.login);
 app.post('/user', userController.create);
-app.get('/user', authMiddleware, userController.findAll);
-app.get('/user/:id', authMiddleware, userController.find);
+
+app.use(authorizationMiddleware);
+
+app.get('/user', userController.findAll);
+app.get('/user/:id', userController.find);
 
 // Category
-app.post('/categories', authMiddleware, categoryController.create);
-app.get('/categories', authMiddleware, categoryController.findAll);
+app.post('/categories', categoryController.create);
+app.get('/categories', categoryController.findAll);
 
 // Post
-app.post('/post', authMiddleware, blogPostController.create);
-app.get('/post', authMiddleware, blogPostController.findAll);
-app.get('/post/:id', authMiddleware, blogPostController.find);
-app.put('/post/:id', authMiddleware, blogPostController.update);
+app.post('/post', blogPostController.create);
+app.get('/post', blogPostController.findAll);
+app.get('/post/:id', blogPostController.find);
+app.put('/post/:id', blogPostController.update);
 // ...
 
 // É importante exportar a constante `app`,
