@@ -12,7 +12,15 @@ const findAll = async (req, res) => {
   res.status(status).json(data);
 };
 
+const find = async (req, res) => {
+  const { id } = req.params;
+  const { status, data } = await blogPostService.find(id);
+
+  res.status(status).json(data);
+};
+
 module.exports = {
   create,
   findAll,
+  find,
 };

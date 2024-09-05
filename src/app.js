@@ -24,7 +24,7 @@ app.get('/categories', authMiddleware, categoryController.findAll);
 // Post
 app.post('/post', authMiddleware, blogPostController.create);
 app.get('/post', authMiddleware, blogPostController.findAll);
-
+app.get('/post/:id', authMiddleware, blogPostController.find);
 // ...
 
 // É importante exportar a constante `app`,
