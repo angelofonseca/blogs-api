@@ -1,5 +1,5 @@
 const express = require('express');
-const { userController, categoryController } = require('./controllers');
+const { userController, categoryController, blogPostController } = require('./controllers');
 const authMiddleware = require('./middlewares/auth.middleware');
 
 // ...
@@ -20,6 +20,9 @@ app.get('/user/:id', authMiddleware, userController.find);
 // Category
 app.post('/categories', authMiddleware, categoryController.create);
 app.get('/categories', authMiddleware, categoryController.findAll);
+
+// Post
+app.post('/post', authMiddleware, blogPostController.create);
 
 // ...
 
