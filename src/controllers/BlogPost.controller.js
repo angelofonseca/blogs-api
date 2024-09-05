@@ -6,6 +6,13 @@ const create = async (req, res) => {
   res.status(status).json(data);
 };
 
+const findAll = async (req, res) => {
+  const { status, data } = await blogPostService.findAll();
+
+  res.status(status).json(data);
+};
+
 module.exports = {
   create,
+  findAll,
 };

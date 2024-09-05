@@ -23,6 +23,7 @@ app.get('/categories', authMiddleware, categoryController.findAll);
 
 // Post
 app.post('/post', authMiddleware, blogPostController.create);
+app.get('/post', authMiddleware, blogPostController.findAll);
 
 // ...
 

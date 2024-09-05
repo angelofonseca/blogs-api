@@ -11,7 +11,7 @@ const create = async (post, email) => {
 
   const newPost = await BlogPost.create(
     { userId: id, ...post },
-    { include: { model: Category, as: 'category_post' } },
+    { include: { model: Category, as: 'categories' } },
   );
 
   const postCategories = categories.map(({ id: categoryId }) => (
@@ -21,6 +21,26 @@ const create = async (post, email) => {
   return { status: 201, data: newPost };
 };
 
+const findAll = async () => {
+  const posts = await BlogPost.findAll({
+    include: [
+      {
+        model: User,
+        as: 'user',
+        attributes: { exclude: ['password'] },
+      },
+      {
+        model: Category,
+        as: 'categories',
+        attributes: { exclude: ['PostCategory'] },
+        through: { attributes: [] },
+      },
+    ],
+  });
+  return { status: 200, data: posts };
+};
+
 module.exports = {
   create,
+  findAll,
 };

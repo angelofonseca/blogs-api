@@ -19,7 +19,7 @@ module.exports = (sequelize, DataTypes) => {
 
   PostCategory.associate = (models) => {
     models.Category.belongsToMany(models.BlogPost, {
-      as: 'post_category',
+      as: 'posts',
       foreignKey: 'categoryId',
       through: PostCategory,
       otherKey: 'postId',
@@ -27,7 +27,7 @@ module.exports = (sequelize, DataTypes) => {
       onUpdate: 'CASCADE',
     });
     models.BlogPost.belongsToMany(models.Category, {
-      as: 'category_post',
+      as: 'categories',
       foreignKey: 'postId',
       through: PostCategory,
       otherKey: 'categoryId',
