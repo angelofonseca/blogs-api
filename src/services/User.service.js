@@ -17,9 +17,11 @@ const login = async (user) => {
 const create = async (user) => {
   const error = validateNewUser(user);
   if (error) return error;
-  const notAvailableEmail = await User.findOne({ where: { email: user.email } });
-  if (notAvailableEmail) return { status: 409, data: { message: 'User already registered' } };
-  await User.create(user);
+  const [, newUser] = await User.findOrCreate({
+    where: { email: user.email },
+    defaults: { ...user },
+  });
+  if (!newUser) return { status: 409, data: { message: 'User already registered' } };
   const newToken = createToken(user);
   return { status: 201, data: { token: newToken } };
 };
