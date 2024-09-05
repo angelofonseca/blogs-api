@@ -1,3 +1,5 @@
+/* eslint-disable max-lines */
+const { Op } = require('sequelize');
 const { BlogPost, User, Category, PostCategory } = require('../models');
 const { validateNewPost, validateUpdatePost } = require('./validations/validate');
 
@@ -54,5 +56,13 @@ const remove = async (postId, email) => {
   await BlogPost.destroy({ where: { id: postId } });
   return { status: 204 };
 };
-
-module.exports = { create, findAll, find, update, remove };
+const search = async (query) => {
+  const posts = await BlogPost.findAll({
+    where: {
+      [Op.or]: [{ title: { [Op.startsWith]: query } }, { content: { [Op.startsWith]: query } }],
+    },
+    ...options,
+  });
+  return { status: 200, data: posts };
+};
+module.exports = { create, findAll, find, update, remove, search };

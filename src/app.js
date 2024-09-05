@@ -28,6 +28,7 @@ app.post('/categories', categoryController.create);
 app.get('/categories', categoryController.findAll);
 
 // Post
+app.get('/post/search', blogPostController.search);
 app.post('/post', blogPostController.create);
 app.get('/post', blogPostController.findAll);
 app.get('/post/:id', blogPostController.find);

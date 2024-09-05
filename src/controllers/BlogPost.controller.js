@@ -34,10 +34,18 @@ const remove = async (req, res) => {
   res.status(status).end();
 };
 
+const search = async (req, res) => {
+  const { q: searchTerm } = req.query;
+  const { status, data } = await blogPostService.search(searchTerm);
+
+  res.status(status).json(data);
+};
+
 module.exports = {
   create,
   findAll,
   find,
   update,
   remove,
+  search,
 };
