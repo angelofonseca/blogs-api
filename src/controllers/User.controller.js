@@ -25,9 +25,17 @@ const findAll = async (req, res) => {
   res.status(status).json(data);
 };
 
+const remove = async (req, res) => {
+  const { email } = req.locals.user;
+  const { status } = await userService.remove(email);
+
+  res.status(status).end();
+};
+
 module.exports = {
   login,
   create,
   find,
   findAll,
+  remove,
 };

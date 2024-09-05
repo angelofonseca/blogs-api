@@ -42,9 +42,15 @@ const findAll = async () => {
   return { status: 200, data: result };
 };
 
+const remove = async (email) => {
+  await User.destroy({ where: { email } });
+  return { status: 204 };
+};
+
 module.exports = {
   login,
   create,
   find,
   findAll,
+  remove,
 };

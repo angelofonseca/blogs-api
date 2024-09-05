@@ -12,14 +12,17 @@ app.get('/', (_request, response) => {
 });
 
 app.use(express.json());
+
+// User
 app.post('/login', userController.login);
 app.post('/user', userController.create);
 
+// Authorizate
 app.use(authorizationMiddleware);
 
 app.get('/user', userController.findAll);
 app.get('/user/:id', userController.find);
-
+app.delete('/user/me', userController.remove);
 // Category
 app.post('/categories', categoryController.create);
 app.get('/categories', categoryController.findAll);
