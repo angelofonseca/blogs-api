@@ -1,6 +1,6 @@
 const { newCategorySchema } = require('./category.schema');
 const { loginSchema, newUserSchema } = require('./login.schema');
-const { newPostSchema } = require('./post.schema');
+const { newPostSchema, updatePostSchema } = require('./post.schema');
 
 const validateLogin = (user) => {
   const { error } = loginSchema.validate(user);
@@ -34,9 +34,18 @@ const validateNewPost = (post) => {
   }
 };
 
+const validateUpdatePost = (post) => {
+  const { error } = updatePostSchema.validate(post);
+
+  if (error) {
+    return { status: 400, data: { message: error.message } };
+  }
+};
+
 module.exports = {
   validateLogin,
   validateNewUser,
   validateNewCategory,
   validateNewPost,
+  validateUpdatePost,
 };

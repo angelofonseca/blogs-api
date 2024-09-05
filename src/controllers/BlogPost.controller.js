@@ -19,8 +19,16 @@ const find = async (req, res) => {
   res.status(status).json(data);
 };
 
+const update = async (req, res) => {
+  const { id } = req.params;
+  const { email } = req.locals.user;
+  const { status, data } = await blogPostService.update(id, req.body, email);
+  res.status(status).json(data);
+};
+
 module.exports = {
   create,
   findAll,
   find,
+  update,
 };
