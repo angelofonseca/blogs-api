@@ -1,14 +1,8 @@
-/* eslint-disable max-lines */
 const { Op } = require('sequelize');
 const { BlogPost, User, Category, PostCategory } = require('../models');
 const { validateNewPost, validateUpdatePost } = require('./validations/validate');
+const options = require('../utils/options');
 
-const options = {
-  include: [
-    { model: User, as: 'user', attributes: { exclude: ['password'] } },
-    { model: Category, as: 'categories', through: { attributes: [] } },
-  ],
-};
 const create = async (post, email) => {
   const error = validateNewPost(post);
   if (error) return error;
@@ -56,11 +50,9 @@ const remove = async (postId, email) => {
   await BlogPost.destroy({ where: { id: postId } });
   return { status: 204 };
 };
-const search = async (query) => {
+const search = async (q) => {
   const posts = await BlogPost.findAll({
-    where: {
-      [Op.or]: [{ title: { [Op.startsWith]: query } }, { content: { [Op.startsWith]: query } }],
-    },
+    where: { [Op.or]: [{ title: { [Op.startsWith]: q } }, { content: { [Op.startsWith]: q } }] },
     ...options,
   });
   return { status: 200, data: posts };
