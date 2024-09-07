@@ -1,3 +1,7 @@
+/**
+ * Este arquivo foi criado pela Trybe.
+ */
+
 module.exports = {
   up: async (queryInterface, _Sequelize) => {
     await queryInterface.bulkInsert('users',
